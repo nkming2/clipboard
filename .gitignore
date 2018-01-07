@@ -1,0 +1,7 @@
+# Ignore all sub-dirs but src/
+build/
+release/
+
+# Ignore additional files in root dir
+*.iml
+*.apk

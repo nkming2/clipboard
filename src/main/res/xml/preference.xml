@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory
+		android:title="@string/pref_others_category">
+
+		<CheckBoxPreference
+			android:key="@string/pref_dark_theme_key"
+			android:title="@string/pref_dark_theme_title"
+			android:summaryOn="@string/pref_dark_theme_summary_on"
+			android:summaryOff="@string/pref_dark_theme_summary_off"
+			android:defaultValue="false" />
+	</PreferenceCategory>
+
+	<PreferenceCategory
+		android:title="@string/pref_about_category">
+
+		<Preference
+			android:key="@string/about_version_key"
+			android:title="@string/about_version_title" />
+
+		<Preference
+			android:title="@string/about_source_title"
+			android:summary="@string/about_source_summary">
+
+			<intent
+				android:action="android.intent.action.VIEW"
+				android:data="@string/about_source_summary" />
+		</Preference>
+	</PreferenceCategory>
+</PreferenceScreen>

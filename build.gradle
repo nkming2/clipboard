@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+	compileSdkVersion appCompileSdkVersion
+	buildToolsVersion "27.0.3"
+	defaultConfig {
+		applicationId "com.nkming.clipboard"
+		minSdkVersion 17
+		targetSdkVersion 27
+		versionCode 1
+		versionName "1.0"
+	}
+	buildTypes {
+		release {
+			minifyEnabled false
+			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+		}
+	}
+	packagingOptions {
+		exclude 'lib/arm64-v8a/libsqlite3x.so'
+		exclude 'lib/x86/libsqlite3x.so'
+		exclude 'lib/x86_64/libsqlite3x.so'
+		exclude 'lib/mips/libsqlite3x.so'
+	}
+}
+
+dependencies {
+	implementation fileTree(dir: 'libs', include: ['*.jar'])
+	implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	implementation project(':libutils')
+	implementation "com.android.support:support-v4:$support_version"
+	implementation "com.android.support:appcompat-v7:$support_version"
+	implementation "com.android.support:recyclerview-v7:$support_version"
+	implementation "com.android.support:cardview-v7:$support_version"
+	implementation "com.android.support:preference-v7:$support_version"
+	implementation "com.android.support:preference-v14:$support_version"
+	implementation "com.android.support:design:$support_version"
+	implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+	implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
+	implementation "io.requery:sqlite-android:$requery_sqlite_version"
+	implementation "android.arch.persistence.room:runtime:$room_version"
+	implementation "android.arch.persistence.room:rxjava2:$room_version"
+	kapt "android.arch.persistence.room:compiler:$room_version"
+	implementation "android.arch.paging:runtime:$paging_version"
+}
+
+buildscript {
+	ext.rxandroid_version = '2.0.1'
+	ext.rxjava_version = '2.1.8'
+	ext.requery_sqlite_version = '3.21.0'
+	ext.room_version = '1.0.0'
+	ext.paging_version = '1.0.0-alpha4-1'
+}
+
+repositories {
+	mavenCentral()
+}
