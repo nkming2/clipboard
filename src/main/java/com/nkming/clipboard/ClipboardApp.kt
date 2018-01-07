@@ -20,6 +20,9 @@ class ClipboardApp : Application()
 		initLog()
 		initDefaultPref()
 
+		val pref = Preference.from(this)
+		migrateVersion(pref)
+
 		ContextCompat.startForegroundService(context,
 				ClipboardService.buildStartIntent(context))
 	}
@@ -34,5 +37,29 @@ class ClipboardApp : Application()
 	{
 		PreferenceManager.setDefaultValues(this, getString(R.string.pref_file),
 				Context.MODE_PRIVATE, R.xml.preference, false)
+	}
+
+	private fun migrateVersion(pref: Preference)
+	{
+		if (pref.lastVersion == BuildConfig.VERSION_CODE)
+		{
+			// Same version
+			return
+		}
+		else if (pref.lastVersion == -1)
+		{
+			// New install
+		}
+		else if (pref.lastVersion < BuildConfig.VERSION_CODE)
+		{
+			// Upgrade
+			// Currently no migration needed
+		}
+		else if (pref.lastVersion > BuildConfig.VERSION_CODE)
+		{
+			// Downgrade o.O
+		}
+		pref.lastVersion = BuildConfig.VERSION_CODE
+		pref.commit()
 	}
 }

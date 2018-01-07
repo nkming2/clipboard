@@ -57,6 +57,16 @@ class Preference(context: Context, pref: SharedPreferences)
 			}
 		}
 
+	var lastVersion: Int
+		get()
+		{
+			return _pref.getInt(_lastVersionKey, -1)
+		}
+		set(v)
+		{
+			_edit.putInt(_lastVersionKey, v)
+		}
+
 	var isDarkTheme: Boolean
 		get()
 		{
@@ -67,6 +77,8 @@ class Preference(context: Context, pref: SharedPreferences)
 			_edit.putBoolean(_darkThemeKey, v)
 		}
 
+	private val _lastVersionKey by lazy{_context.getString(
+			R.string.pref_last_version_key)}
 	private val _darkThemeKey by lazy{_context.getString(
 			R.string.pref_dark_theme_key)}
 
