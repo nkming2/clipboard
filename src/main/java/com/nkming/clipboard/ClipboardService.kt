@@ -192,6 +192,7 @@ private class NotifComponent(service: Service) : ServiceComponent
 				NotificationManager.IMPORTANCE_MIN)
 		ch.description = _context.getString(
 				R.string.notif_content_channel_description)
+		ch.lockscreenVisibility = NotificationCompat.VISIBILITY_SECRET
 		_notifManager.createNotificationChannel(ch)
 	}
 
