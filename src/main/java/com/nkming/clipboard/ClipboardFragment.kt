@@ -15,6 +15,9 @@ import android.support.v7.app.AlertDialog
 import android.support.v7.recyclerview.extensions.DiffCallback
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.support.v7.widget.helper.ItemTouchHelper
+import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
+import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_SWIPE
 import android.text.TextUtils
 import android.view.*
 import android.widget.Button
@@ -103,6 +106,30 @@ class ClipboardFragment : FragmentEx()
 		adapter.onRemoveListener = ::onRemove
 		_list.adapter = adapter
 		_list.layoutManager = LinearLayoutManager(activity)
+
+		val touchHelper = ItemTouchHelper(object: ItemTouchHelper.Callback()
+		{
+			override fun getMovementFlags(recyclerView: RecyclerView,
+					viewHolder: RecyclerView.ViewHolder): Int
+			{
+				val idle = makeFlag(ACTION_STATE_IDLE, ItemTouchHelper.LEFT
+						or ItemTouchHelper.RIGHT)
+				val swipe = makeFlag(ACTION_STATE_SWIPE, ItemTouchHelper.LEFT
+						or ItemTouchHelper.RIGHT)
+				return idle or swipe
+			}
+
+			override fun onMove(recyclerView: RecyclerView?,
+					viewHolder: RecyclerView.ViewHolder?,
+					target: RecyclerView.ViewHolder?) = false
+
+			override fun onSwiped(viewHolder: RecyclerView.ViewHolder,
+					direction: Int)
+			{
+				adapter.onRemove(viewHolder as MyViewHolder)
+			}
+		})
+		touchHelper.attachToRecyclerView(_list)
 	}
 
 	private fun onCopy(clip: Clip)
@@ -203,6 +230,20 @@ private class MyAdapter(context: Context)
 		}
 	}
 
+	fun onRemove(holder: MyViewHolder)
+	{
+		Log.i("$LOG_TAG.onRemove", "Position: ${holder.adapterPosition}")
+		val clip = getItem(holder.adapterPosition)
+		if (clip == null)
+		{
+			Log.e("$LOG_TAG.onRemove", "clip == null(?!)")
+			Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
+					.show()
+			return
+		}
+		onRemoveListener?.invoke(clip)
+	}
+
 	var onCopyListener: ((Clip) -> Unit)? = null
 	var onRemoveListener: ((Clip) -> Unit)? = null
 
@@ -218,20 +259,6 @@ private class MyAdapter(context: Context)
 			return
 		}
 		onCopyListener?.invoke(clip)
-	}
-
-	private fun onRemove(holder: MyViewHolder)
-	{
-		Log.i("$LOG_TAG.onRemove", "Position: ${holder.adapterPosition}")
-		val clip = getItem(holder.adapterPosition)
-		if (clip == null)
-		{
-			Log.e("$LOG_TAG.onRemove", "clip == null(?!)")
-			Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
-					.show()
-			return
-		}
-		onRemoveListener?.invoke(clip)
 	}
 
 	private val _context = context
