@@ -1,5 +1,6 @@
 package com.nkming.clipboard
 
+import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProviders
@@ -10,6 +11,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.recyclerview.extensions.DiffCallback
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -60,6 +62,12 @@ class ClipboardFragment : FragmentEx()
 		initList()
 	}
 
+	override fun onStop()
+	{
+		super.onStop()
+		_dialog?.cancel()
+	}
+
 	override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater)
 	{
 		inflater.inflate(R.menu.clipboard, menu)
@@ -71,6 +79,11 @@ class ClipboardFragment : FragmentEx()
 		{
 			R.id.action_settings -> {
 				startActivity(Intent(context, ConfigActivity::class.java))
+				true
+			}
+
+			R.id.action_clear -> {
+				onClearClick()
 				true
 			}
 
@@ -128,8 +141,22 @@ class ClipboardFragment : FragmentEx()
 		})
 	}
 
+	private fun onClearClick()
+	{
+		_dialog?.cancel()
+		_dialog = AlertDialog.Builder(context!!)
+				.setMessage(R.string.dialog_clear_confirm_content)
+				.setPositiveButton(android.R.string.ok, {_, _ -> run{
+					Db.nukeClips()
+				}})
+				.setNegativeButton(android.R.string.cancel, null)
+				.create()
+		_dialog!!.show()
+	}
+
 	private val _coordinator by lazyView<CoordinatorLayout>(R.id.coordinator)
 	private val _list by lazyView<RecyclerView>(android.R.id.list)
+	private var _dialog: Dialog? = null
 
 	private var _undoClip: Clip? = null
 }

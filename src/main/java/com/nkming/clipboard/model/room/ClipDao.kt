@@ -102,4 +102,21 @@ abstract class ClipDao
 
 	@Delete
 	abstract fun _deleteClipItems(vararg items: ClipItem)
+
+	@Transaction
+	open fun nukeClips()
+	{
+		_nukeClipMimes()
+		_nukeClipItems()
+		_nukeClipMetas()
+	}
+
+	@Query("DELETE FROM ${ClipMime.TABLE}")
+	abstract fun _nukeClipMimes()
+
+	@Query("DELETE FROM ${ClipItem.TABLE}")
+	abstract fun _nukeClipItems()
+
+	@Query("DELETE FROM ${ClipMeta.TABLE}")
+	abstract fun _nukeClipMetas()
 }

@@ -91,6 +91,15 @@ abstract class Db : RoomDatabase()
 					.subscribe(onNext, onError)
 		}
 
+		fun nukeClips(onNext: () -> Unit = {},
+				onError: (Throwable) -> Unit = {throw it}): Disposable
+		{
+			return Completable.fromCallable{instance.clipDao().nukeClips()}
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(onNext, onError)
+		}
+
 		val instance by lazy{
 			Room.databaseBuilder(ClipboardApp.context, Db::class.java, "db")
 					.openHelperFactory(RequerySQLiteOpenHelperFactory())
