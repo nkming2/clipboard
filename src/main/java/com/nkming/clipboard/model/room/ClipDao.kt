@@ -9,28 +9,20 @@ import io.reactivex.Flowable
 abstract class ClipDao
 {
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
-			+ "INNER JOIN ${ClipMime.TABLE} ON ${ClipMime.TABLE}.${ClipMime.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
-			+ "INNER JOIN ${ClipItem.TABLE} ON ${ClipItem.TABLE}.${ClipItem.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
 			+ "ORDER BY ${ClipMeta.COL_CREATE_AT} DESC")
 	abstract fun loadAllClips(): DataSource.Factory<Int, Clip>
 
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
-			+ "INNER JOIN ${ClipMime.TABLE} ON ${ClipMime.TABLE}.${ClipMime.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
-			+ "INNER JOIN ${ClipItem.TABLE} ON ${ClipItem.TABLE}.${ClipItem.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
 			+ "WHERE ${ClipMeta.TABLE}.${ClipMeta.COL_CREATE_AT} = :createAt "
 			+ "LIMIT 1")
 	abstract fun loadClipByCreateAt(createAt: Long): Clip
 
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
-			+ "INNER JOIN ${ClipMime.TABLE} ON ${ClipMime.TABLE}.${ClipMime.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
-			+ "INNER JOIN ${ClipItem.TABLE} ON ${ClipItem.TABLE}.${ClipItem.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
 			+ "ORDER BY ${ClipMeta.TABLE}.${ClipMeta.COL_CREATE_AT} DESC "
 			+ "LIMIT :limit OFFSET :offset")
 	abstract fun loadClipByLatest(limit: Int = 1, offset: Int = 0): List<Clip>
 
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
-			+ "INNER JOIN ${ClipMime.TABLE} ON ${ClipMime.TABLE}.${ClipMime.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
-			+ "INNER JOIN ${ClipItem.TABLE} ON ${ClipItem.TABLE}.${ClipItem.COL_CLIP_ID} = ${ClipMeta.TABLE}.${ClipMeta.COL_ID} "
 			+ "ORDER BY ${ClipMeta.TABLE}.${ClipMeta.COL_CREATE_AT} DESC "
 			+ "LIMIT :limit OFFSET :offset")
 	abstract fun observeClipByLatest(limit: Int = 1, offset: Int = 0): Flowable<Clip>
