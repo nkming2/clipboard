@@ -33,6 +33,8 @@ import com.nkming.clipboard.model.room.toClipDataItem
 import com.nkming.utils.Log
 import com.nkming.utils.app.FragmentEx
 import com.nkming.utils.widget.ImageViewEx
+import java.io.File
+import java.net.URI
 import java.text.DateFormat
 import java.util.*
 
@@ -354,16 +356,31 @@ private class MyViewHolder(root: View,
 		}
 
 		val uriItems = clip.items.filter{!TextUtils.isEmpty(it.uri)}
-		val resolver = context.contentResolver
+		if (clip.mimes.any{it.mime.startsWith("image", ignoreCase = true)})
+		{
+			val resolver = context.contentResolver
+			for (item in uriItems)
+			{
+				val uri = Uri.parse(item.uri)
+				// getType can return null if uri is not a content uri
+				if (resolver.getType(uri)?.startsWith("image", ignoreCase = true)
+						== true)
+				{
+					return Pair(null, uri)
+				}
+				else if (item.uri.startsWith("file://"))
+				{
+					// File uri pointing to an image
+					val f = File(URI.create(item.uri))
+					if (f.exists())
+					{
+						return Pair(null, uri)
+					}
+				}
+			}
+		}
 		for (item in uriItems)
 		{
-			val uri = Uri.parse(item.uri)
-			// getType can return null if uri is not a content uri
-			if (resolver.getType(uri)?.startsWith("image", ignoreCase = true)
-					== true)
-			{
-				return Pair(null, uri)
-			}
 			val repr = item.toClipDataItem().coerceToText(context).toString()
 			if (!TextUtils.isEmpty(repr))
 			{
