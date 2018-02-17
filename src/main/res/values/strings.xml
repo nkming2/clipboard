@@ -37,5 +37,11 @@
 	<string name="about_source_title">Source code</string>
 	<string name="about_source_summary" translatable="false">https://github.com/nkming2/clipboard</string>
 
+	<string name="about_translator_key" translatable="false">translator</string>
+	<string name="about_translator_title">Translator</string>
+	<string name="about_translator_credit"></string>
+	<string name="about_translator_help" translatable="false">Help translating to your language \u263A</string>
+	<string name="about_translator_help_url" translatable="false">https://github.com/nkming2/clipboard/blob/master/src/main/res/values/strings.xml</string>
+
 	<string name="db_name" translatable="false">com.nkming.clipboard</string>
 </resources>

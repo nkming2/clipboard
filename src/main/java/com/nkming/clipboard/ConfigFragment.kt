@@ -1,6 +1,9 @@
 package com.nkming.clipboard
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.support.v7.preference.Preference
 import android.support.v7.preference.PreferenceFragmentCompat
 
 class ConfigFragment : PreferenceFragmentCompat()
@@ -36,5 +39,20 @@ class ConfigFragment : PreferenceFragmentCompat()
 	{
 		val aboutVersion = findPreference(getString(R.string.about_version_key))
 		aboutVersion.summary = BuildConfig.VERSION_NAME
+
+		if (getString(R.string.about_translator_credit).isEmpty())
+		{
+			val aboutTranslator = findPreference(getString(
+					R.string.about_translator_key))
+			aboutTranslator.summary = getString(R.string.about_translator_help)
+			aboutTranslator.onPreferenceClickListener =
+					Preference.OnPreferenceClickListener{
+						val i = Intent(Intent.ACTION_VIEW)
+						i.data = Uri.parse(getString(
+								R.string.about_translator_help_url))
+						startActivity(i)
+						return@OnPreferenceClickListener true
+					}
+		}
 	}
 }
