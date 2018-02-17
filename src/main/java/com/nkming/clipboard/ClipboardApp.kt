@@ -11,6 +11,8 @@ class ClipboardApp : Application()
 	companion object
 	{
 		lateinit var context: Context
+
+		const val PERMISSION_REQ_READ_EXT_STORAGE = 1000
 	}
 
 	override fun onCreate()

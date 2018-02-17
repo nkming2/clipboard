@@ -1,5 +1,6 @@
 package com.nkming.clipboard
 
+import android.Manifest
 import android.app.Dialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
@@ -7,10 +8,12 @@ import android.arch.lifecycle.ViewModelProviders
 import android.arch.paging.PagedListAdapter
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.recyclerview.extensions.DiffCallback
 import android.support.v7.widget.LinearLayoutManager
@@ -62,6 +65,7 @@ class ClipboardFragment : FragmentEx()
 	override fun onActivityCreated(savedInstanceState: Bundle?)
 	{
 		super.onActivityCreated(savedInstanceState)
+		ensureReadPermission()
 		initList()
 	}
 
@@ -91,6 +95,27 @@ class ClipboardFragment : FragmentEx()
 			}
 
 			else -> super.onOptionsItemSelected(item)
+		}
+	}
+
+	override fun onRequestPermissionsResult(requestCode: Int,
+			permissions: Array<out String>, grantResults: IntArray)
+	{
+		if (requestCode == ClipboardApp.PERMISSION_REQ_READ_EXT_STORAGE)
+		{
+			if (grantResults.isNotEmpty()
+					&& grantResults[0] == PackageManager.PERMISSION_GRANTED)
+			{
+				Log.i("$LOG_TAG.onRequestPermissionsResult",
+						"READ_EXTERNAL_STORAGE granted")
+				// Reload the list
+				_list.adapter.notifyDataSetChanged()
+			}
+		}
+		else
+		{
+			Log.e("$LOG_TAG.onRequestPermissionsResult",
+					"Unknown req code: $requestCode")
 		}
 	}
 
@@ -179,6 +204,17 @@ class ClipboardFragment : FragmentEx()
 				.setNegativeButton(android.R.string.cancel, null)
 				.create()
 		_dialog!!.show()
+	}
+
+	private fun ensureReadPermission()
+	{
+		val permissionCheck = ContextCompat.checkSelfPermission(context!!,
+				Manifest.permission.READ_EXTERNAL_STORAGE)
+		if (permissionCheck != PackageManager.PERMISSION_GRANTED)
+		{
+			requestPermissions(arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+					ClipboardApp.PERMISSION_REQ_READ_EXT_STORAGE)
+		}
 	}
 
 	private val _coordinator by lazyView<CoordinatorLayout>(R.id.coordinator)
