@@ -1,0 +1,36 @@
+<resources>
+	<string name="app_name">Clipboard</string>
+	<string name="config_app_name">Configurações do Clipboard</string>
+
+	<string name="copy">Copiar</string>
+	<string name="remove">Remover</string>
+	<string name="unknown_error">Erro desconhecido</string>
+	<string name="undo_failed">Falha ao desfazer a remoção da cópia</string>
+	<string name="clip_removed">Cópia removida</string>
+	<string name="undo">Desfazer</string>
+
+	<string name="notif_content_channel_name">Conteúdo do Clipboard</string>
+	<string name="notif_content_channel_description">Mostrar o conteúdo atual da área de transferência</string>
+
+	<string name="notif_title">Conteúdo atual da área de transferência</string>
+	<string name="notif_content_empty">(Sem dados)</string>
+	<string name="notif_content_non_text">(Dados não-textuais)</string>
+	<string name="notif_action_previous">Anterior</string>
+
+	<string name="action_settings">Configurações</string>
+	<string name="action_clear">Limpar</string>
+
+	<string name="dialog_clear_confirm_content">Você está prestes a remover <b>TODAS</b> as cópias salvas. <b>Isto não poderá ser desfeito</b></string>
+
+	<string name="pref_others_category">Outros</string>
+	<string name="pref_dark_theme_title">Tema preto</string>
+	<string name="pref_dark_theme_summary_on">Usando o tema preto</string>
+	<string name="pref_dark_theme_summary_off">Usando o tema leve</string>
+
+	<string name="pref_about_category">Sobre</string>
+	<string name="about_version_title">Versão</string>
+	<string name="about_source_title">Código fonte</string>
+
+	<string name="about_translator_title">Tradutor</string>
+	<string name="about_translator_credit">Lucas K.</string>
+</resources>
