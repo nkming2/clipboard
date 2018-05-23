@@ -15,7 +15,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
-import android.support.v7.recyclerview.extensions.DiffCallback
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
@@ -127,7 +127,7 @@ class ClipboardFragment : FragmentEx()
 		val viewModel = ViewModelProviders.of(this).get(MyViewModel::class.java)
 		viewModel.clipLiveData.observe(this, Observer{
 			Log.d(LOG_TAG, "Data delivery~~")
-			adapter.setList(it)
+			adapter.submitList(it)
 		})
 		adapter.onCopyListener = ::onCopy
 		adapter.onRemoveListener = ::onRemove
@@ -231,7 +231,7 @@ private class MyAdapter(context: Context)
 {
 	companion object
 	{
-		private val DIFF_CALLBACK = object: DiffCallback<Clip>()
+		private val DIFF_CALLBACK = object: DiffUtil.ItemCallback<Clip>()
 		{
 			override fun areItemsTheSame(oldItem: Clip, newItem: Clip): Boolean
 			{

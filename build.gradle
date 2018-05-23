@@ -44,14 +44,16 @@ dependencies {
 	implementation "android.arch.persistence.room:rxjava2:$room_version"
 	kapt "android.arch.persistence.room:compiler:$room_version"
 	implementation "android.arch.paging:runtime:$paging_version"
+	implementation "android.arch.lifecycle:extensions:$lifecycle_version"
 }
 
 buildscript {
-	ext.rxandroid_version = '2.0.1'
-	ext.rxjava_version = '2.1.8'
+	ext.rxandroid_version = '2.0.2'
+	ext.rxjava_version = '2.1.14'
 	ext.requery_sqlite_version = '3.21.0'
-	ext.room_version = '1.0.0'
-	ext.paging_version = '1.0.0-alpha4-1'
+	ext.room_version = '1.1.0'
+	ext.paging_version = '1.0.0'
+	ext.lifecycle_version = '1.1.1'
 }
 
 repositories {
