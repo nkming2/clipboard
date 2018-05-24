@@ -1,11 +1,8 @@
 <resources>
-	<attr name="clipboardFragItemBgColor" format="reference"/>
-
 	<style name="AppThemeBase.Light" parent="Theme.AppCompat.Light.DarkActionBar">
 		<item name="colorPrimary">@color/primary_light</item>
 		<item name="colorPrimaryDark">@color/primary_dark_light</item>
 		<item name="colorAccent">@color/accent_light</item>
-		<item name="clipboardFragItemBgColor">@color/accent_dark_light</item>
 		<item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 	</style>
 	<style name="AppTheme.Light" parent="AppThemeBase.Light" />
@@ -14,7 +11,6 @@
 		<item name="colorPrimary">@color/primary_light</item>
 		<item name="colorPrimaryDark">@color/primary_dark_light</item>
 		<item name="colorAccent">@color/accent_light</item>
-		<item name="clipboardFragItemBgColor">@color/accent_dark_light</item>
 		<item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 	</style>
 	<style name="AppTheme.Light.NoActionBar" parent="AppThemeBase.Light.NoActionBar" />
@@ -23,7 +19,6 @@
 		<item name="colorPrimary">@color/primary_dark</item>
 		<item name="colorPrimaryDark">@color/primary_dark_dark</item>
 		<item name="colorAccent">@color/accent_dark</item>
-		<item name="clipboardFragItemBgColor">@color/accent_dark_dark</item>
 		<item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 	</style>
 	<style name="AppTheme.Dark" parent="AppThemeBase.Dark" />
@@ -32,7 +27,6 @@
 		<item name="colorPrimary">@color/primary_dark</item>
 		<item name="colorPrimaryDark">@color/primary_dark_dark</item>
 		<item name="colorAccent">@color/accent_dark</item>
-		<item name="clipboardFragItemBgColor">@color/accent_dark_dark</item>
 		<item name="preferenceTheme">@style/PreferenceThemeOverlay.v14.Material</item>
 	</style>
 	<style name="AppTheme.Dark.NoActionBar" parent="AppThemeBase.Dark.NoActionBar" />
