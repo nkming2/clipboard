@@ -252,7 +252,8 @@ private class MyAdapter(context: Context)
 			: MyViewHolder
 	{
 		val v = _inflater.inflate(R.layout.clipboard_frag_item, parent, false)
-		return MyViewHolder(v, onCopy = ::onCopy, onRemove = ::onRemove)
+		return MyViewHolder(v, onCopy = ::onCopy, onRemove = ::onRemove,
+				onClick = ::onCopy)
 	}
 
 	override fun onBindViewHolder(holder: MyViewHolder, position: Int)
@@ -305,7 +306,8 @@ private class MyAdapter(context: Context)
 
 private class MyViewHolder(root: View,
 		onCopy: ((holder: MyViewHolder) -> Unit)? = null,
-		onRemove: ((holder: MyViewHolder) -> Unit)? = null)
+		onRemove: ((holder: MyViewHolder) -> Unit)? = null,
+		onClick: ((holder: MyViewHolder) -> Unit)? = null)
 		: RecyclerView.ViewHolder(root)
 {
 	companion object
@@ -330,6 +332,7 @@ private class MyViewHolder(root: View,
 		_datetime.text = DateFormat.getDateTimeInstance().format(
 				Date(clip.meta.createAt))
 
+		itemView.setOnClickListener{_onClick?.invoke(this)}
 		_copy.setOnClickListener{_onCopy?.invoke(this)}
 		_remove.setOnClickListener{_onRemove?.invoke(this)}
 	}
@@ -341,6 +344,7 @@ private class MyViewHolder(root: View,
 		_text.text = null
 		_text.visibility = View.GONE
 		_datetime.text = null
+		itemView.setOnClickListener(null)
 		_copy.setOnClickListener(null)
 		_remove.setOnClickListener(null)
 	}
@@ -392,6 +396,7 @@ private class MyViewHolder(root: View,
 
 	private val _onCopy = onCopy
 	private val _onRemove = onRemove
+	private val _onClick = onClick
 	private val _image = root.findViewById<ImageViewEx>(R.id.image)
 	private val _text = root.findViewById<TextView>(R.id.text)
 	private val _datetime = root.findViewById<TextView>(R.id.datetime)
