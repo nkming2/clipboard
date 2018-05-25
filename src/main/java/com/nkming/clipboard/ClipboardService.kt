@@ -9,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
+import android.support.v4.media.app.NotificationCompat.MediaStyle
 import com.nkming.clipboard.model.room.Clip
 import com.nkming.clipboard.model.room.Db
 import com.nkming.clipboard.model.room.toClipData
@@ -299,6 +300,7 @@ private class NotifBuilder(context: Context)
 			builder.addAction(R.drawable.ic_restore_white_24dp,
 					_context.getString(R.string.notif_action_previous),
 					pendingIntent)
+			builder.setStyle(MediaStyle().setShowActionsInCompactView(0))
 		}
 		return builder.build()
 	}
