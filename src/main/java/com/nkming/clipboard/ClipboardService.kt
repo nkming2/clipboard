@@ -278,6 +278,7 @@ private class NotifBuilder(context: Context)
 				.setOngoing(true)
 				.setSmallIcon(R.drawable.ic_content_paste_white_24dp)
 				.setColor(_notificationColor)
+				.setCategory(NotificationCompat.CATEGORY_STATUS)
 
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
 		{
