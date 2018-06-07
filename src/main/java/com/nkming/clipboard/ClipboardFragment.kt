@@ -9,7 +9,7 @@ import android.arch.paging.PagedListAdapter
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
@@ -21,20 +21,18 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
 import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_SWIPE
-import android.text.TextUtils
+import android.transition.TransitionInflater
 import android.view.*
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.nkming.clipboard.ClipboardApp.Companion.context
 import com.nkming.clipboard.model.room.Clip
 import com.nkming.clipboard.model.room.Db
-import com.nkming.clipboard.model.room.toClipDataItem
 import com.nkming.utils.Log
 import com.nkming.utils.app.FragmentEx
 import com.nkming.utils.widget.ImageViewEx
-import java.io.File
-import java.net.URI
 import java.text.DateFormat
 import java.util.*
 
@@ -131,6 +129,7 @@ class ClipboardFragment : FragmentEx()
 		})
 		adapter.onCopyListener = ::onCopy
 		adapter.onRemoveListener = ::onRemove
+		adapter.onExpandListener = ::onExpand
 		_list.adapter = adapter
 		_list.layoutManager = LinearLayoutManager(activity)
 
@@ -177,6 +176,38 @@ class ClipboardFragment : FragmentEx()
 			})
 			snackbar.show()
 		})
+	}
+
+	private fun onExpand(clip: Clip, holder: MyViewHolder)
+	{
+		val f = ClipboardDetailFragment.create(clip.meta.createAt)
+		val transaction = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+		{
+			val inflater = TransitionInflater.from(context)
+			sharedElementReturnTransition = inflater.inflateTransition(
+					android.R.transition.move)
+			exitTransition = null
+
+			f.sharedElementEnterTransition = inflater.inflateTransition(
+					android.R.transition.move)
+			f.enterTransition = null
+
+			val transitionName = context!!.getString(
+					R.string.transition_start_card, clip.meta.createAt)
+			fragmentManager!!.beginTransaction()
+					.addSharedElement(holder.itemView, transitionName)
+		}
+		else
+		{
+			fragmentManager!!.beginTransaction()
+					.setCustomAnimations(android.R.anim.fade_in,
+							android.R.anim.fade_out)
+		}
+		transaction.hide(this)
+				.add(R.id.container, f)
+				.addToBackStack(ClipboardDetailFragment.FRAGMENT_STACK_NAME)
+				.setReorderingAllowed(true)
+				.commitAllowingStateLoss()
 	}
 
 	private fun onUndo()
@@ -253,7 +284,7 @@ private class MyAdapter(context: Context)
 	{
 		val v = _inflater.inflate(R.layout.clipboard_frag_item, parent, false)
 		return MyViewHolder(v, onCopy = ::onCopy, onRemove = ::onRemove,
-				onClick = ::onCopy)
+				onExpand = ::onExpand, onClick = ::onCopy)
 	}
 
 	override fun onBindViewHolder(holder: MyViewHolder, position: Int)
@@ -285,6 +316,7 @@ private class MyAdapter(context: Context)
 
 	var onCopyListener: ((Clip) -> Unit)? = null
 	var onRemoveListener: ((Clip) -> Unit)? = null
+	var onExpandListener: ((Clip, MyViewHolder) -> Unit)? = null
 
 	private fun onCopy(holder: MyViewHolder)
 	{
@@ -300,6 +332,20 @@ private class MyAdapter(context: Context)
 		onCopyListener?.invoke(clip)
 	}
 
+	private fun onExpand(holder: MyViewHolder)
+	{
+		Log.i("$LOG_TAG.onExpand", "Position: ${holder.adapterPosition}")
+		val clip = getItem(holder.adapterPosition)
+		if (clip == null)
+		{
+			Log.e("$LOG_TAG.onExpand", "clip == null(?!)")
+			Toast.makeText(context, R.string.unknown_error, Toast.LENGTH_LONG)
+					.show()
+			return
+		}
+		onExpandListener?.invoke(clip, holder)
+	}
+
 	private val _context = context
 	private val _inflater = LayoutInflater.from(context)
 }
@@ -307,6 +353,7 @@ private class MyAdapter(context: Context)
 private class MyViewHolder(root: View,
 		onCopy: ((holder: MyViewHolder) -> Unit)? = null,
 		onRemove: ((holder: MyViewHolder) -> Unit)? = null,
+		onExpand: ((holder: MyViewHolder) -> Unit)? = null,
 		onClick: ((holder: MyViewHolder) -> Unit)? = null)
 		: RecyclerView.ViewHolder(root)
 {
@@ -318,7 +365,7 @@ private class MyViewHolder(root: View,
 	fun bindTo(clip: Clip)
 	{
 		clear()
-		val repr = getRepresentation(clip)
+		val repr = ClipUtil.getRepresentation(context, clip)
 		if (repr.first != null)
 		{
 			_text.visibility = View.VISIBLE
@@ -335,6 +382,14 @@ private class MyViewHolder(root: View,
 		itemView.setOnClickListener{_onClick?.invoke(this)}
 		_copy.setOnClickListener{_onCopy?.invoke(this)}
 		_remove.setOnClickListener{_onRemove?.invoke(this)}
+		_more.setOnClickListener{_onExpand?.invoke(this)}
+
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+		{
+			val transitionName = context.getString(
+					R.string.transition_start_card, clip.meta.createAt)
+			itemView.transitionName = transitionName
+		}
 	}
 
 	fun clear()
@@ -347,59 +402,17 @@ private class MyViewHolder(root: View,
 		itemView.setOnClickListener(null)
 		_copy.setOnClickListener(null)
 		_remove.setOnClickListener(null)
-	}
-
-	private fun getRepresentation(clip: Clip): Pair<String?, Uri?>
-	{
-		// Favor displaying plain text over htmltext
-		val text = clip.items.firstOrNull{!TextUtils.isEmpty(it.text)}
-				?: clip.items.firstOrNull{!TextUtils.isEmpty(it.htmlText)}
-		if (text != null)
-		{
-			return Pair(text.text, null)
-		}
-
-		val uriItems = clip.items.filter{!TextUtils.isEmpty(it.uri)}
-		if (clip.mimes.any{it.mime.startsWith("image", ignoreCase = true)})
-		{
-			val resolver = context.contentResolver
-			for (item in uriItems)
-			{
-				val uri = Uri.parse(item.uri)
-				// getType can return null if uri is not a content uri
-				if (resolver.getType(uri)?.startsWith("image", ignoreCase = true)
-						== true)
-				{
-					return Pair(null, uri)
-				}
-				else if (item.uri.startsWith("file://"))
-				{
-					// File uri pointing to an image
-					val f = File(URI.create(item.uri))
-					if (f.exists())
-					{
-						return Pair(null, uri)
-					}
-				}
-			}
-		}
-		for (item in uriItems)
-		{
-			val repr = item.toClipDataItem().coerceToText(context).toString()
-			if (!TextUtils.isEmpty(repr))
-			{
-				return Pair(repr, null)
-			}
-		}
-		return Pair(context.getString(R.string.notif_content_non_text), null)
+		_more.setOnClickListener(null)
 	}
 
 	private val _onCopy = onCopy
 	private val _onRemove = onRemove
+	private val _onExpand = onExpand
 	private val _onClick = onClick
 	private val _image = root.findViewById<ImageViewEx>(R.id.image)
 	private val _text = root.findViewById<TextView>(R.id.text)
 	private val _datetime = root.findViewById<TextView>(R.id.datetime)
 	private val _copy = root.findViewById<Button>(R.id.copy)
 	private val _remove = root.findViewById<Button>(R.id.remove)
+	private val _more = root.findViewById<ImageButton>(R.id.more)
 }

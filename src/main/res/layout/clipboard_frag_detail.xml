@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This CardView is only here for the transition animation -->
+<android.support.v7.widget.CardView
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:tools="http://schemas.android.com/tools"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+
+		<ScrollView
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_above="@id/datetime"
+			android:layout_alignParentTop="true"
+			android:clickable="false"
+			android:focusable="false">
+
+			<RelativeLayout
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:paddingLeft="16dp"
+				android:paddingRight="16dp"
+				android:paddingBottom="16dp">
+
+				<com.nkming.utils.widget.ImageViewEx
+					android:id="@+id/image"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_centerHorizontal="true"
+					android:layout_marginTop="16dp"
+					android:maxHeight="128dp"
+					android:adjustViewBounds="true"
+					android:visibility="gone"
+					app:async="true"
+					app:loadOptimalSize="true"
+					tools:visibility="visible"
+					tools:src="@drawable/placeholder"/>
+
+				<TextView
+					android:id="@+id/text"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/image"
+					android:layout_marginTop="16dp"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+					android:visibility="gone"
+					android:background="@null"
+					tools:visibility="visible"
+					tools:text="@tools:sample/lorem/random" />
+			</RelativeLayout>
+		</ScrollView>
+
+		<TextView
+			android:id="@+id/datetime"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_marginTop="8dp"
+			android:layout_marginStart="16dp"
+			android:layout_marginBottom="8dp"
+			android:layout_alignParentStart="true"
+			android:layout_alignParentBottom="true"
+			android:textAppearance="@style/TextAppearance.AppCompat.Small"
+			android:textSize="12sp"
+			tools:text="2018-01-01 00:00:00"/>
+	</RelativeLayout>
+</android.support.v7.widget.CardView>

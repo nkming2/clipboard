@@ -22,6 +22,10 @@
 
 	<string name="dialog_clear_confirm_content">You are about to remove <b>ALL</b> saved clips. <b>This cannot be undone</b></string>
 
+	<string name="clipboard_detail_query_failed">Failed querying clip data</string>
+
+	<string name="transition_start_card" translatable="false">transition_start_card_%d</string>
+
 	<string name="pref_file" translatable="false">com.nkming.clipboard</string>
 	<string name="pref_last_version_key" translatable="false">last_version</string>
 
