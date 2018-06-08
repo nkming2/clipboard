@@ -52,12 +52,18 @@ class ClipboardDetailFragment : FragmentEx()
 		_text.isClickable = false
 		_text.isFocusable = false
 		Db.loadClipByCreateAt(_clipCreateAt, onNext = {
-			_clip = it
-			initView()
+			if (!isViewDestroyed)
+			{
+				_clip = it
+				initView()
+			}
 		}, onError = {
-			fragmentManager!!.beginTransaction()
-					.remove(this)
-					.commitAllowingStateLoss()
+			if (!isViewDestroyed)
+			{
+				fragmentManager!!.beginTransaction()
+						.remove(this)
+						.commitAllowingStateLoss()
+			}
 			Toast.makeText(context, R.string.clipboard_detail_query_failed,
 					Toast.LENGTH_LONG).show()
 		})
