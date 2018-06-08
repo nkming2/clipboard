@@ -27,8 +27,9 @@ class ClipboardDetailFragment : FragmentEx()
 			return f
 		}
 
-		const val EXTRA_CLIP_CREATE_AT = "clipCreateAt"
 		const val FRAGMENT_STACK_NAME = "clip_detail"
+
+		private const val EXTRA_CLIP_CREATE_AT = "clipCreateAt"
 	}
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
