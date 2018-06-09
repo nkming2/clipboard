@@ -22,6 +22,7 @@
 
 	<string name="dialog_clear_confirm_content">You are about to remove <b>ALL</b> saved clips. <b>This cannot be undone</b></string>
 
+	<string name="clipboard_updated">Clipboard content has been updated</string>
 	<string name="clipboard_detail_query_failed">Failed querying clip data</string>
 
 	<string name="transition_start_card" translatable="false">transition_start_card_%d</string>

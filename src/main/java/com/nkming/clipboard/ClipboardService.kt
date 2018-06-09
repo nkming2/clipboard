@@ -10,6 +10,7 @@ import android.os.Build
 import android.support.v4.app.NotificationCompat
 import android.support.v4.content.ContextCompat
 import android.support.v4.media.app.NotificationCompat.MediaStyle
+import android.widget.Toast
 import com.nkming.clipboard.model.room.Clip
 import com.nkming.clipboard.model.room.Db
 import com.nkming.clipboard.model.room.toClipData
@@ -99,6 +100,9 @@ private class ClipboardComponent(context: Context) : ServiceComponent
 				val clipData = it.toClipData()
 				_clipboard.primaryClip = clipData
 				_clipboard.addPrimaryClipChangedListener(_onPrimaryClipChanged)
+
+				Toast.makeText(_context, R.string.clipboard_updated,
+						Toast.LENGTH_LONG).show()
 			})
 		})
 	}
@@ -130,6 +134,7 @@ private class ClipboardComponent(context: Context) : ServiceComponent
 		}
 	}
 
+	private val _context = context
 	private val _clipboard by lazy{context.getSystemService(
 			Context.CLIPBOARD_SERVICE) as ClipboardManager}
 
