@@ -10,8 +10,8 @@ open class BaseActivity : AppCompatActivityEx()
 {
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
-		super.onCreate(savedInstanceState)
 		setTheme(_theme)
+		super.onCreate(savedInstanceState)
 		_pref.onSharedPreferenceChangeListener =
 				SharedPreferences.OnSharedPreferenceChangeListener{_, key -> run{
 					if (key == getString(R.string.pref_dark_theme_key))
