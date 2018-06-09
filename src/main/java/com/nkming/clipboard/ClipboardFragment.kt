@@ -11,8 +11,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.util.DiffUtil
@@ -60,6 +58,15 @@ class ClipboardFragment : FragmentEx()
 			savedInstanceState: Bundle?): View?
 	{
 		return inflater.inflate(R.layout.clipboard_frag, container, false)
+	}
+
+	override fun onAttach(context: Context?)
+	{
+		super.onAttach(context)
+		if (activity !is OnRemoveClipListener)
+		{
+			throw IllegalStateException("activity !is OnRemoveClipListener")
+		}
 	}
 
 	override fun onActivityCreated(savedInstanceState: Bundle?)
@@ -166,16 +173,7 @@ class ClipboardFragment : FragmentEx()
 
 	private fun onRemove(clip: Clip)
 	{
-		Db.deleteClips(clip, onNext = {
-			_undoClip = clip
-
-			val snackbar = Snackbar.make(_coordinator, R.string.clip_removed,
-					Snackbar.LENGTH_LONG)
-			snackbar.setAction(R.string.undo, {
-				onUndo()
-			})
-			snackbar.show()
-		})
+		_onRemoveClipListener.onRemoveClip(clip)
 	}
 
 	private fun onExpand(clip: Clip, holder: MyViewHolder)
@@ -210,22 +208,6 @@ class ClipboardFragment : FragmentEx()
 				.commitAllowingStateLoss()
 	}
 
-	private fun onUndo()
-	{
-		if (_undoClip == null)
-		{
-			Log.w("$LOG_TAG.onUndo", "_undoClip == null")
-			Toast.makeText(context, R.string.undo_failed, Toast.LENGTH_LONG)
-					.show()
-			return
-		}
-		Db.insertClips(_undoClip!!, onError = {
-			Log.e("$LOG_TAG.onUndo", "Failed while insertClips", it)
-			Toast.makeText(context, R.string.undo_failed, Toast.LENGTH_LONG)
-					.show()
-		})
-	}
-
 	private fun onClearClick()
 	{
 		_dialog?.cancel()
@@ -250,11 +232,10 @@ class ClipboardFragment : FragmentEx()
 		}
 	}
 
-	private val _coordinator by lazyView<CoordinatorLayout>(R.id.coordinator)
 	private val _list by lazyView<RecyclerView>(android.R.id.list)
 	private var _dialog: Dialog? = null
 
-	private var _undoClip: Clip? = null
+	private val _onRemoveClipListener by lazy{activity as OnRemoveClipListener}
 }
 
 private class MyAdapter(context: Context)
