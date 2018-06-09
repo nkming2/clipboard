@@ -1,10 +1,12 @@
 package com.nkming.clipboard
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import com.nkming.clipboard.model.room.Clip
@@ -44,6 +46,15 @@ class ClipboardDetailFragment : FragmentEx()
 			v.transitionName = transitionName
 		}
 		return v
+	}
+
+	override fun onAttach(context: Context?)
+	{
+		super.onAttach(context)
+		if (activity !is OnRemoveClipListener)
+		{
+			throw IllegalStateException("activity !is OnRemoveClipListener")
+		}
 	}
 
 	override fun onActivityCreated(savedInstanceState: Bundle?)
@@ -91,6 +102,22 @@ class ClipboardDetailFragment : FragmentEx()
 		}
 		_datetime.text = DateFormat.getDateTimeInstance().format(
 				Date(_clip.meta.createAt))
+
+		_copy.setOnClickListener{onCopy()}
+		_remove.setOnClickListener{onRemove()}
+	}
+
+	private fun onCopy()
+	{
+		val i = ClipboardService.buildReclipIntent(context!!,
+				_clip.meta.createAt)
+		context!!.startService(i)
+	}
+
+	private fun onRemove()
+	{
+		_onRemoveClipListener.onRemoveClip(_clip)
+		fragmentManager?.popBackStack()
 	}
 
 	private val _clipCreateAt by lazy{arguments?.getLong(EXTRA_CLIP_CREATE_AT)
@@ -99,4 +126,8 @@ class ClipboardDetailFragment : FragmentEx()
 	private val _image by lazyView<ImageViewEx>(R.id.image)
 	private val _text by lazyView<TextView>(R.id.text)
 	private val _datetime by lazyView<TextView>(R.id.datetime)
+	private val _copy by lazyView<ImageButton>(R.id.copy)
+	private val _remove by lazyView<ImageButton>(R.id.remove)
+
+	private val _onRemoveClipListener by lazy{activity as OnRemoveClipListener}
 }

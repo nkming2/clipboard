@@ -62,9 +62,34 @@
 			android:layout_marginStart="16dp"
 			android:layout_marginBottom="8dp"
 			android:layout_alignParentStart="true"
-			android:layout_alignParentBottom="true"
+			android:layout_above="@id/btn_container"
 			android:textAppearance="@style/TextAppearance.AppCompat.Small"
 			android:textSize="12sp"
 			tools:text="2018-01-01 00:00:00"/>
+
+		<android.support.constraint.ConstraintLayout
+			android:id="@+id/btn_container"
+			android:layout_width="match_parent"
+			android:layout_height="56dp"
+			android:layout_alignParentBottom="true">
+
+			<ImageButton
+				android:id="@+id/copy"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toStartOf="@id/remove"
+				android:background="?android:selectableItemBackground"
+				android:src="?clipboardFragItemDetailCopyBtn" />
+
+			<ImageButton
+				android:id="@+id/remove"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				app:layout_constraintStart_toEndOf="@id/copy"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:background="?android:selectableItemBackground"
+				android:src="?clipboardFragItemDetailRemoveBtn" />
+		</android.support.constraint.ConstraintLayout>
 	</RelativeLayout>
 </android.support.v7.widget.CardView>
