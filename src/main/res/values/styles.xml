@@ -3,6 +3,9 @@
 	<attr name="clipboardFragItemMoreBtn" format="reference"/>
 	<attr name="clipboardFragItemDetailCopyBtn" format="reference"/>
 	<attr name="clipboardFragItemDetailRemoveBtn" format="reference"/>
+	<attr name="clipboardFragItemDetailEditBtn" format="reference"/>
+	<attr name="clipboardFragItemDetailEditApplyBtn" format="reference"/>
+	<attr name="clipboardFragItemDetailEditDiscardBtn" format="reference"/>
 
 	<style name="AppThemeBase.Light" parent="Theme.AppCompat.Light.DarkActionBar">
 		<item name="colorPrimary">@color/primary_light</item>
@@ -13,6 +16,9 @@
 		<item name="clipboardFragItemMoreBtn">@drawable/baseline_open_in_new_black_24</item>
 		<item name="clipboardFragItemDetailCopyBtn">@drawable/outline_file_copy_black_24</item>
 		<item name="clipboardFragItemDetailRemoveBtn">@drawable/outline_delete_black_24</item>
+		<item name="clipboardFragItemDetailEditBtn">@drawable/outline_edit_black_24</item>
+		<item name="clipboardFragItemDetailEditApplyBtn">@drawable/outline_done_black_24</item>
+		<item name="clipboardFragItemDetailEditDiscardBtn">@drawable/outline_clear_black_24</item>
 	</style>
 	<style name="AppTheme.Light" parent="AppThemeBase.Light" />
 
@@ -25,6 +31,9 @@
 		<item name="clipboardFragItemMoreBtn">@drawable/baseline_open_in_new_black_24</item>
 		<item name="clipboardFragItemDetailCopyBtn">@drawable/outline_file_copy_black_24</item>
 		<item name="clipboardFragItemDetailRemoveBtn">@drawable/outline_delete_black_24</item>
+		<item name="clipboardFragItemDetailEditBtn">@drawable/outline_edit_black_24</item>
+		<item name="clipboardFragItemDetailEditApplyBtn">@drawable/outline_done_black_24</item>
+		<item name="clipboardFragItemDetailEditDiscardBtn">@drawable/outline_clear_black_24</item>
 	</style>
 	<style name="AppTheme.Light.NoActionBar" parent="AppThemeBase.Light.NoActionBar" />
 
@@ -37,6 +46,9 @@
 		<item name="clipboardFragItemMoreBtn">@drawable/baseline_open_in_new_white_24</item>
 		<item name="clipboardFragItemDetailCopyBtn">@drawable/outline_file_copy_white_24</item>
 		<item name="clipboardFragItemDetailRemoveBtn">@drawable/outline_delete_white_24</item>
+		<item name="clipboardFragItemDetailEditBtn">@drawable/outline_edit_white_24</item>
+		<item name="clipboardFragItemDetailEditApplyBtn">@drawable/outline_done_white_24</item>
+		<item name="clipboardFragItemDetailEditDiscardBtn">@drawable/outline_clear_white_24</item>
 	</style>
 	<style name="AppTheme.Dark" parent="AppThemeBase.Dark" />
 
@@ -49,6 +61,9 @@
 		<item name="clipboardFragItemMoreBtn">@drawable/baseline_open_in_new_white_24</item>
 		<item name="clipboardFragItemDetailCopyBtn">@drawable/outline_file_copy_white_24</item>
 		<item name="clipboardFragItemDetailRemoveBtn">@drawable/outline_delete_white_24</item>
+		<item name="clipboardFragItemDetailEditBtn">@drawable/outline_edit_white_24</item>
+		<item name="clipboardFragItemDetailEditApplyBtn">@drawable/outline_done_white_24</item>
+		<item name="clipboardFragItemDetailEditDiscardBtn">@drawable/outline_clear_white_24</item>
 	</style>
 	<style name="AppTheme.Dark.NoActionBar" parent="AppThemeBase.Dark.NoActionBar" />
 </resources>

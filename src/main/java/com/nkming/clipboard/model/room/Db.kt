@@ -100,6 +100,17 @@ abstract class Db : RoomDatabase()
 					.subscribe(onNext, onError)
 		}
 
+		fun transaction(run: () -> Unit,onNext: () -> Unit = {},
+				onError: (Throwable) -> Unit = {throw it}): Disposable
+		{
+			return Completable.fromCallable{
+						instance.runInTransaction(run)
+					}
+					.subscribeOn(Schedulers.io())
+					.observeOn(AndroidSchedulers.mainThread())
+					.subscribe(onNext, onError)
+		}
+
 		val instance by lazy{
 			Room.databaseBuilder(ClipboardApp.context, Db::class.java, "db")
 					.openHelperFactory(RequerySQLiteOpenHelperFactory())

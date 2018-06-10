@@ -49,7 +49,21 @@
 					android:textAppearance="@style/TextAppearance.AppCompat.Body1"
 					android:visibility="gone"
 					android:background="@null"
+					android:hyphenationFrequency="none"
 					tools:visibility="visible"
+					tools:text="@tools:sample/lorem/random" />
+
+				<EditText
+					android:id="@+id/edit_text"
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:layout_below="@id/image"
+					android:layout_marginTop="16dp"
+					android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+					android:visibility="gone"
+					android:background="@null"
+					android:inputType="textMultiLine"
+					tools:visibility="gone"
 					tools:text="@tools:sample/lorem/random" />
 			</RelativeLayout>
 		</ScrollView>
@@ -78,18 +92,47 @@
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
 				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintEnd_toStartOf="@id/remove"
+				app:layout_constraintEnd_toStartOf="@id/edit"
 				android:background="?android:selectableItemBackground"
 				android:src="?clipboardFragItemDetailCopyBtn" />
+
+			<ImageButton
+				android:id="@+id/edit"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				app:layout_constraintStart_toEndOf="@id/copy"
+				app:layout_constraintEnd_toStartOf="@id/remove"
+				android:background="?android:selectableItemBackground"
+				android:src="?clipboardFragItemDetailEditBtn" />
 
 			<ImageButton
 				android:id="@+id/remove"
 				android:layout_width="0dp"
 				android:layout_height="match_parent"
-				app:layout_constraintStart_toEndOf="@id/copy"
+				app:layout_constraintStart_toEndOf="@id/edit"
 				app:layout_constraintEnd_toEndOf="parent"
 				android:background="?android:selectableItemBackground"
 				android:src="?clipboardFragItemDetailRemoveBtn" />
+
+			<ImageButton
+				android:id="@+id/apply"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toStartOf="@id/discard"
+				android:background="?android:selectableItemBackground"
+				android:src="?clipboardFragItemDetailEditApplyBtn"
+				android:visibility="gone" />
+
+			<ImageButton
+				android:id="@+id/discard"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				app:layout_constraintStart_toEndOf="@id/apply"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:background="?android:selectableItemBackground"
+				android:src="?clipboardFragItemDetailEditDiscardBtn"
+				android:visibility="gone" />
 		</android.support.constraint.ConstraintLayout>
 	</RelativeLayout>
 </android.support.v7.widget.CardView>
