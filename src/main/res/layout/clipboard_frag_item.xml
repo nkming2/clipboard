@@ -55,39 +55,13 @@
 			android:textSize="12sp"
 			tools:text="2018-01-01 00:00:00"/>
 
-		<Button
-			android:id="@+id/copy"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/datetime"
-			android:layout_alignParentStart="true"
-			android:layout_marginStart="8dp"
-			android:layout_marginBottom="8dp"
-			android:layout_marginTop="8dp"
-			style="@style/Base.Widget.AppCompat.Button.Borderless.Colored"
-			android:text="@string/copy"/>
-
-		<Button
-			android:id="@+id/remove"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_below="@id/text"
-			android:layout_toEndOf="@id/copy"
-			android:layout_alignTop="@id/copy"
-			style="@style/Base.Widget.AppCompat.Button.Borderless"
-			android:text="@string/remove"/>
-
 		<ImageButton
 			android:id="@+id/more"
 			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_height="48dp"
 			android:layout_below="@id/datetime"
 			android:layout_alignParentEnd="true"
-			android:layout_marginEnd="8dp"
-			android:layout_alignTop="@id/remove"
-			android:layout_alignBottom="@id/remove"
-			android:paddingTop="8dp"
-			android:paddingBottom="8dp"
+			android:layout_margin="8dp"
 			android:paddingLeft="16dp"
 			android:paddingRight="16dp"
 			android:background="?android:selectableItemBackground"

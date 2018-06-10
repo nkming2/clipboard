@@ -21,7 +21,6 @@ import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_IDLE
 import android.support.v7.widget.helper.ItemTouchHelper.ACTION_STATE_SWIPE
 import android.transition.TransitionInflater
 import android.view.*
-import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
@@ -264,8 +263,7 @@ private class MyAdapter(context: Context)
 			: MyViewHolder
 	{
 		val v = _inflater.inflate(R.layout.clipboard_frag_item, parent, false)
-		return MyViewHolder(v, onCopy = ::onCopy, onRemove = ::onRemove,
-				onExpand = ::onExpand, onClick = ::onCopy)
+		return MyViewHolder(v, onExpand = ::onExpand, onClick = ::onCopy)
 	}
 
 	override fun onBindViewHolder(holder: MyViewHolder, position: Int)
@@ -332,8 +330,6 @@ private class MyAdapter(context: Context)
 }
 
 private class MyViewHolder(root: View,
-		onCopy: ((holder: MyViewHolder) -> Unit)? = null,
-		onRemove: ((holder: MyViewHolder) -> Unit)? = null,
 		onExpand: ((holder: MyViewHolder) -> Unit)? = null,
 		onClick: ((holder: MyViewHolder) -> Unit)? = null)
 		: RecyclerView.ViewHolder(root)
@@ -361,8 +357,6 @@ private class MyViewHolder(root: View,
 				Date(clip.meta.createAt))
 
 		itemView.setOnClickListener{_onClick?.invoke(this)}
-		_copy.setOnClickListener{_onCopy?.invoke(this)}
-		_remove.setOnClickListener{_onRemove?.invoke(this)}
 		_more.setOnClickListener{_onExpand?.invoke(this)}
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
@@ -381,19 +375,13 @@ private class MyViewHolder(root: View,
 		_text.visibility = View.GONE
 		_datetime.text = null
 		itemView.setOnClickListener(null)
-		_copy.setOnClickListener(null)
-		_remove.setOnClickListener(null)
 		_more.setOnClickListener(null)
 	}
 
-	private val _onCopy = onCopy
-	private val _onRemove = onRemove
 	private val _onExpand = onExpand
 	private val _onClick = onClick
 	private val _image = root.findViewById<ImageViewEx>(R.id.image)
 	private val _text = root.findViewById<TextView>(R.id.text)
 	private val _datetime = root.findViewById<TextView>(R.id.datetime)
-	private val _copy = root.findViewById<Button>(R.id.copy)
-	private val _remove = root.findViewById<Button>(R.id.remove)
 	private val _more = root.findViewById<ImageButton>(R.id.more)
 }
