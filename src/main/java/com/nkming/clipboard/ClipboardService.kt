@@ -85,6 +85,10 @@ private class ClipboardComponent(context: Context) : ServiceComponent
 				Log.e("$LOG_TAG.insertClip", "Failed while insert", it)
 			})
 		}
+		else
+		{
+			Log.w("$LOG_TAG.insertClip", "ClipItem is empty (an intent clip?)")
+		}
 	}
 
 	private fun reclip(data: Intent)
