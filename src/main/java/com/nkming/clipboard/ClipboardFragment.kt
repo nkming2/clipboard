@@ -177,6 +177,17 @@ class ClipboardFragment : FragmentEx()
 
 	private fun onExpand(clip: Clip, holder: MyViewHolder)
 	{
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+		{
+			for (i in _layoutManager.findFirstVisibleItemPosition()
+					.._layoutManager.findLastVisibleItemPosition())
+			{
+				val h = _list.findViewHolderForAdapterPosition(i)
+				h?.itemView?.translationZ = 0f
+			}
+			holder.itemView.translationZ = 1f
+		}
+
 		val f = ClipboardDetailFragment.create(clip.meta.createAt)
 		val transaction = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
 		{
@@ -232,6 +243,8 @@ class ClipboardFragment : FragmentEx()
 	}
 
 	private val _list by lazyView<RecyclerView>(android.R.id.list)
+	private val _layoutManager
+		get() = _list.layoutManager as LinearLayoutManager
 	private var _dialog: Dialog? = null
 
 	private val _onRemoveClipListener by lazy{activity as OnRemoveClipListener}
