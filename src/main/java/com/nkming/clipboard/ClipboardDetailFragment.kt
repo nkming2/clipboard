@@ -44,6 +44,7 @@ class ClipboardDetailFragment : FragmentEx()
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
 			savedInstanceState: Bundle?): View
 	{
+		super.onCreateView(inflater, container, savedInstanceState)
 		val v = inflater.inflate(R.layout.clipboard_frag_detail, container,
 				false)
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
