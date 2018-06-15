@@ -77,10 +77,22 @@ class Preference(context: Context, pref: SharedPreferences)
 			_edit.putBoolean(_darkThemeKey, v)
 		}
 
+	var introLevel: Int
+		get()
+		{
+			return _pref.getInt(_introLevelKey, 0)
+		}
+		set(v)
+		{
+			_edit.putInt(_introLevelKey, v)
+		}
+
 	private val _lastVersionKey by lazy{_context.getString(
 			R.string.pref_last_version_key)}
 	private val _darkThemeKey by lazy{_context.getString(
 			R.string.pref_dark_theme_key)}
+	private val _introLevelKey by lazy{_context.getString(
+			R.string.pref_intro_level_key)}
 
 	private val _context = context
 	private val _pref = pref

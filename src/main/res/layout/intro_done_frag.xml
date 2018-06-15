@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent">
+
+	<View
+		android:id="@+id/title_area"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/intro_title_height"
+		android:background="?colorPrimary" />
+
+	<TextView
+		android:id="@+id/title"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="@id/title_area"
+		android:padding="16dp"
+		android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+		android:textColor="@color/md_white_1000"
+		android:text="@string/intro_done_title" />
+
+	<TextView
+		android:id="@+id/message"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintTop_toBottomOf="@id/title"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		android:layout_marginTop="@dimen/intro_title_margin_bottom"
+		android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+		android:paddingLeft="16dp"
+		android:paddingRight="16dp"
+		android:gravity="center_horizontal"
+		android:text="@string/intro_done_message" />
+
+	<android.support.design.widget.FloatingActionButton
+		android:id="@+id/next"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		app:layout_constraintBottom_toBottomOf="parent"
+		app:layout_constraintLeft_toLeftOf="parent"
+		app:layout_constraintRight_toRightOf="parent"
+		android:layout_marginTop="@dimen/intro_next_margin_top"
+		android:layout_marginBottom="@dimen/intro_next_margin_bottom"
+		android:src="@drawable/outline_done_white_24" />
+</android.support.constraint.ConstraintLayout>

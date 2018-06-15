@@ -1,5 +1,6 @@
 package com.nkming.clipboard
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
@@ -23,12 +24,20 @@ class ClipboardActivity : BaseActivity(), OnRemoveClipListener
 	override fun onCreate(savedInstanceState: Bundle?)
 	{
 		super.onCreate(savedInstanceState)
-		setContentView(R.layout.frag_activity)
-		if (savedInstanceState == null)
+		if (_pref.introLevel == 0)
 		{
-			supportFragmentManager.beginTransaction()
-					.add(R.id.container, ClipboardFragment.create())
-					.commit()
+			startActivity(Intent(this, IntroActivity::class.java))
+			finish()
+		}
+		else
+		{
+			setContentView(R.layout.frag_activity)
+			if (savedInstanceState == null)
+			{
+				supportFragmentManager.beginTransaction()
+						.add(R.id.container, ClipboardFragment.create())
+						.commit()
+			}
 		}
 	}
 
@@ -61,6 +70,8 @@ class ClipboardActivity : BaseActivity(), OnRemoveClipListener
 					.show()
 		})
 	}
+
+	private val _pref by lazy{Preference.from(this)}
 
 	private val _container by lazy{findViewById<CoordinatorLayout>(
 			R.id.container)}

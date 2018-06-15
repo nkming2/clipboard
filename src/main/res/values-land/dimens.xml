@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="intro_title_height">80dp</dimen>
+	<dimen name="intro_title_margin_bottom">16dp</dimen>
+	<dimen name="intro_next_margin_bottom">8dp</dimen>
+</resources>

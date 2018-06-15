@@ -27,6 +27,7 @@
 
 	<string name="pref_file" translatable="false">com.nkming.clipboard</string>
 	<string name="pref_last_version_key" translatable="false">last_version</string>
+	<string name="pref_intro_level_key" translatable="false">intro_level</string>
 
 	<string name="pref_others_category">Others</string>
 	<string name="pref_dark_theme_key" translatable="false">dark_theme</string>
@@ -45,6 +46,27 @@
 	<string name="about_translator_credit"></string>
 	<string name="about_translator_help" translatable="false">Help translating to your language \u263A</string>
 	<string name="about_translator_help_url" translatable="false">https://gitlab.com/nkming2/clipboard/blob/master/src/main/res/values/strings.xml</string>
+
+	<string name="intro_greeting_message">Nice to meet you &#x263a;</string>
+	<string name="intro_greeting_detail_message">Let\'s cover the basics together</string>
+	<string name="intro_theme_title">Pick a theme</string>
+	<string name="intro_theme_clip_text_dark">Dark grey theme with a teal accent</string>
+	<string name="intro_theme_clip_text_light">White theme with a bright red accent</string>
+	<string name="intro_theme_clip_time" translatable="false">Jun 24, 2018 00:00:00</string>
+	<string name="intro_reclip_title">Copy</string>
+	<string name="intro_reclip_clip_text">Tap tap</string>
+	<string name="intro_reclip_clip_time" translatable="false">Aug 25, 2018 00:00:00</string>
+	<string name="intro_reclip_message">Tap anywhere on a card to copy the content</string>
+	<string name="intro_remove_title">Remove</string>
+	<string name="intro_remove_clip_text">----->Swipe</string>
+	<string name="intro_remove_clip_time" translatable="false">Jan 3, 2018 00:00:00</string>
+	<string name="intro_remove_message">Swipe either direction to dismiss a record</string>
+	<string name="intro_expand_title">More&#8230;</string>
+	<string name="intro_expand_clip_text">Typi is a typo</string>
+	<string name="intro_expand_clip_time" translatable="false">Apr 15, 2018 00:00:00</string>
+	<string name="intro_expand_message">Tap the expand button to modify content</string>
+	<string name="intro_done_title">At last</string>
+	<string name="intro_done_message">This app works mainly in the background. You can find us from the notification panel</string>
 
 	<string name="db_name" translatable="false">com.nkming.clipboard</string>
 </resources>
