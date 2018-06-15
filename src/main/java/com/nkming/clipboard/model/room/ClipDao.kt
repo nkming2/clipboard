@@ -8,20 +8,24 @@ import io.reactivex.Flowable
 @Dao
 abstract class ClipDao
 {
+	@Transaction
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
 			+ "ORDER BY ${ClipMeta.COL_CREATE_AT} DESC")
 	abstract fun loadAllClips(): DataSource.Factory<Int, Clip>
 
+	@Transaction
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
 			+ "WHERE ${ClipMeta.TABLE}.${ClipMeta.COL_CREATE_AT} = :createAt "
 			+ "LIMIT 1")
 	abstract fun loadClipByCreateAt(createAt: Long): Clip
 
+	@Transaction
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
 			+ "ORDER BY ${ClipMeta.TABLE}.${ClipMeta.COL_CREATE_AT} DESC "
 			+ "LIMIT :limit OFFSET :offset")
 	abstract fun loadClipByLatest(limit: Int = 1, offset: Int = 0): List<Clip>
 
+	@Transaction
 	@Query("SELECT * FROM ${ClipMeta.TABLE} "
 			+ "ORDER BY ${ClipMeta.TABLE}.${ClipMeta.COL_CREATE_AT} DESC "
 			+ "LIMIT :limit OFFSET :offset")
