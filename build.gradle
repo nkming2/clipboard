@@ -24,6 +24,9 @@ android {
 		exclude 'lib/x86_64/libsqlite3x.so'
 		exclude 'lib/mips/libsqlite3x.so'
 	}
+	lintOptions {
+		disable 'MissingTranslation'
+	}
 }
 
 dependencies {
