@@ -20,9 +20,6 @@
 
 	<string name="dialog_clear_confirm_content">Você está prestes a remover <b>TODAS</b> as cópias salvas. <b>Isto não poderá ser desfeito</b></string>
 
-	<string name="clipboard_updated">Clipboard content has been updated</string>
-	<string name="clipboard_detail_query_failed">Failed querying clip data</string>
-
 	<string name="pref_others_category">Outros</string>
 	<string name="pref_dark_theme_title">Tema preto</string>
 	<string name="pref_dark_theme_summary_on">Usando o tema preto</string>
