@@ -1,0 +1,34 @@
+<resources>
+	<string name="app_name">Буфер обмена</string>
+	<string name="config_app_name">Настройки буфера обмена</string>
+
+	<string name="unknown_error">Неизвестная ошибка</string>
+	<string name="undo_failed">Не удалось отменить удаление текста</string>
+	<string name="clip_removed">Текст удалён</string>
+	<string name="undo">Отменить</string>
+
+	<string name="notif_content_channel_name">Содержимое буфера обмена</string>
+	<string name="notif_content_channel_description">Показать текущее содержимое буфера обмена</string>
+
+	<string name="notif_title">Текущее содержимое буфера обмена</string>
+	<string name="notif_content_empty">(Нет данных)</string>
+	<string name="notif_content_non_text">(Нетекстовые данные)</string>
+	<string name="notif_action_previous">Предыдущий текст</string>
+
+	<string name="action_settings">Настройки</string>
+	<string name="action_clear">Очистить</string>
+
+	<string name="dialog_clear_confirm_content">Будут удалены <b>ВСЕ</b> сохранённые тексты. <b>Эту операцию невозможно отменить</b></string>
+
+	<string name="pref_others_category">Прочее</string>
+	<string name="pref_dark_theme_title">Тёмная тема</string>
+	<string name="pref_dark_theme_summary_on">Используется тёмная тема</string>
+	<string name="pref_dark_theme_summary_off">Используется светлая тема</string>
+
+	<string name="pref_about_category">О приложении</string>
+	<string name="about_version_title">Версия</string>
+	<string name="about_source_title">Исходный код</string>
+
+	<string name="about_translator_title">Переводчик</string>
+	<string name="about_translator_credit">Дмитрий Севастюк</string>
+</resources>
