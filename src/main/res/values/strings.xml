@@ -54,6 +54,7 @@
 	<string name="intro_theme_clip_text_light">White theme with a bright red accent</string>
 	<string name="intro_theme_clip_time" translatable="false">Jun 24, 2018 00:00:00</string>
 	<string name="intro_reclip_title">Copy</string>
+	<!-- Translators, there's no need to translate these *_clip_text strings as is. Anything that make sense in the context would be totally fine! -->
 	<string name="intro_reclip_clip_text">Tap tap</string>
 	<string name="intro_reclip_clip_time" translatable="false">Aug 25, 2018 00:00:00</string>
 	<string name="intro_reclip_message">Tap anywhere on a card to copy the content</string>
