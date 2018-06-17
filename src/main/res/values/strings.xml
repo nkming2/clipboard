@@ -3,8 +3,8 @@
 	<string name="config_app_name">Clipboard Settings</string>
 
 	<string name="unknown_error">Unknown error</string>
-	<string name="undo_failed">Failed undoing clip removal</string>
-	<string name="clip_removed">Clip removed</string>
+	<string name="undo_failed">Failed undoing item removal</string>
+	<string name="clip_removed">Item removed</string>
 	<string name="undo">Undo</string>
 
 	<string name="notif_content_channel_name">Clipboard Content</string>
@@ -18,10 +18,10 @@
 	<string name="action_settings">Settings</string>
 	<string name="action_clear">Clear</string>
 
-	<string name="dialog_clear_confirm_content">You are about to remove <b>ALL</b> saved clips. <b>This cannot be undone</b></string>
+	<string name="dialog_clear_confirm_content">You are about to remove <b>ALL</b> saved items. <b>This cannot be undone</b></string>
 
 	<string name="clipboard_updated">Clipboard content has been updated</string>
-	<string name="clipboard_detail_query_failed">Failed querying clip data</string>
+	<string name="clipboard_detail_query_failed">Failed querying item data</string>
 
 	<string name="transition_start_card" translatable="false">transition_start_card_%d</string>
 
