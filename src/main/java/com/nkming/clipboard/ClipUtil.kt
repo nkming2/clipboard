@@ -46,7 +46,14 @@ object ClipUtil
 		}
 		for (item in uriItems)
 		{
-			val repr = item.toClipDataItem().coerceToText(context).toString()
+			val repr = try
+			{
+				item.toClipDataItem().coerceToText(context).toString()
+			}
+			catch (e: SecurityException)
+			{
+				continue
+			}
 			if (!TextUtils.isEmpty(repr))
 			{
 				return Pair(repr, null)
