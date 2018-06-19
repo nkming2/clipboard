@@ -59,6 +59,6 @@ object ClipUtil
 				return Pair(repr, null)
 			}
 		}
-		return Pair(context.getString(R.string.notif_content_non_text), null)
+		return Pair(context.getString(R.string.item_content_non_text), null)
 	}
 }
