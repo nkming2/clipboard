@@ -2,6 +2,7 @@
 Clipboard manager for Android
 
 ## Build dependency
+- libutils (https://gitlab.com/nkming2/libutils-android)
 - Paging
 - Room
 - RxJava + RxAndroid
