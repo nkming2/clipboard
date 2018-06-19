@@ -190,7 +190,10 @@ private class NotifComponent(service: Service) : ServiceComponent
 	override fun onDestroy()
 	{
 		super.onDestroy()
-		_subscription.dispose()
+		if (::_subscription.isInitialized)
+		{
+			_subscription.dispose()
+		}
 		_service.stopForeground(true)
 	}
 
