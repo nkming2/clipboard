@@ -8,14 +8,11 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.support.v4.app.NotificationCompat
-import android.support.v4.content.ContextCompat
-import android.support.v4.media.app.NotificationCompat.MediaStyle
 import android.widget.Toast
 import com.nkming.clipboard.model.room.Clip
 import com.nkming.clipboard.model.room.Db
 import com.nkming.clipboard.model.room.toClipData
 import com.nkming.utils.Log
-import com.nkming.utils.type.ext.parseStyledResourceId
 import io.reactivex.disposables.Disposable
 
 class ClipboardService : ComponentService()
@@ -289,7 +286,6 @@ private class NotifBuilder(context: Context)
 				.setOnlyAlertOnce(true)
 				.setOngoing(true)
 				.setSmallIcon(R.drawable.ic_content_paste_white_24dp)
-				.setColor(_notificationColor)
 				.setCategory(NotificationCompat.CATEGORY_STATUS)
 
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O)
@@ -301,7 +297,7 @@ private class NotifBuilder(context: Context)
 		builder.setContentIntent(PendingIntent.getActivity(_context, 0,
 				appIntent, PendingIntent.FLAG_UPDATE_CURRENT))
 
-		val style = android.support.v4.app.NotificationCompat.BigTextStyle()
+		val style = NotificationCompat.BigTextStyle()
 				.bigText(content)
 		builder.setStyle(style)
 
@@ -313,23 +309,8 @@ private class NotifBuilder(context: Context)
 			builder.addAction(R.drawable.ic_restore_white_24dp,
 					_context.getString(R.string.notif_action_previous),
 					pendingIntent)
-			builder.setStyle(MediaStyle().setShowActionsInCompactView(0))
 		}
 		return builder.build()
-	}
-
-	private val _notificationColor by lazy{
-		return@lazy try
-		{
-			val colorId = _context.parseStyledResourceId(R.attr.colorPrimary,
-					R.color.primary_dark)
-			ContextCompat.getColor(_context, colorId)
-		}
-		catch (e: Exception)
-		{
-			Log.e("$LOG_TAG._notificationColor", "Failed while getResourceId", e)
-			ContextCompat.getColor(_context, R.color.primary_dark)
-		}
 	}
 
 	private val _context = context
